@@ -43,7 +43,7 @@ const Contact = () => {
         <section className={'c-space my-20'}>
             <div className={'relative min-h-screen flex flex-col justify-center items-center'}>
                 <img src={'/assets/terminal.png'} alt={'terminal Background'}
-                     className={'absolute min-h-screen inset-0'}/>
+                     className={'absolute min-h-screen inset-0 hidden lg:block'}/>
                 <div className={'contact-container'}>
                     <h3 className={'head-text '}>Let&#39;s Talk</h3>
                     <p className={'text-white-600 text-lg'}>Whether you&#39;re looking to build a new website, Improve
