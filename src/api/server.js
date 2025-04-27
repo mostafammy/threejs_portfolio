@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import fetch from 'node-fetch';
 import cors from 'cors';
+import {env} from 'node:process';
 
 
 dotenv.config(); // Load environment variables
@@ -13,7 +14,12 @@ app.use(express.json()); // Middleware to parse JSON bodies
 app.use(cors()); // Enable CORS for all routes
 
 // Access environment variables directly from process.env
-const RECAPTCHA_SECRET_KEY = '6LetbiYrAAAAAGE5kIOUWr81YF_dkCpaWrbu7d7x'; // process.env.RECAPTCHA_SECRET_KEY;
+const RECAPTCHA_SECRET_KEY = env.RECAPTCHA_SECRET_KEY || ''; // Default value for testing
+
+console.log('RECAPTCHA_SECRET_KEY:', env); // Log for debugging
+
+// Access environment variables directly from process.env
+// const RECAPTCHA_SECRET_KEYj = '6LetbiYrAAAAAGE5kIOUWr81YF_dkCpaWrbu7d7x'; // process.env.RECAPTCHA_SECRET_KEY;
 const RECAPTCHA_SCORE_THRESHOLD = 0.5; // Adjust as needed (0.0 to 1.0)
 
 // Your contact form endpoint
