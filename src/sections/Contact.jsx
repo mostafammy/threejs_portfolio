@@ -1,9 +1,11 @@
 import {useRef, useState} from "react";
 import emailjs from '@emailjs/browser';
+import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
 
 const Contact = () => {
     const formRef = useRef();
     const [loading, setLoading] = useState(false);
+    const {executeRecaptcha} = useGoogleReCaptcha();
     const [form, setForm] = useState({
         name: '',
         email: '',
@@ -15,8 +17,38 @@ const Contact = () => {
     // service_m36zyjg
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!executeRecaptcha) {
+            alert("reCAPTCHA not loaded yet");
+            return;
+        }
         setLoading(true);
+        const token = await executeRecaptcha('contact_form');
         try {
+            // Prepare data to send to backend
+            const dataToSend = {recaptchaToken: token}; // Include the token
+
+            // *** SEND DATA TO YOUR BACKEND ENDPOINT ***
+            const response = await fetch('http://localhost:3001/api/contact', { // <-- IMPORTANT: This needs to be your backend endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                // Handle backend errors (including reCAPTCHA verification failure)
+                throw new Error(result.message || 'Submission failed.');
+            }
+
+            // Success!
+            alert('Message sent successfully!');
+
+
+            // Sending The Email Using EmailJs
             await emailjs.send('service_m36zyjg', 'template_7cxu3bg', {
                 from_name: form.name,
                 from_email: form.email,
