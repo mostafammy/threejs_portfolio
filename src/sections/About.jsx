@@ -5,7 +5,7 @@ import {useState} from "react";
 const About = () => {
     const [hasCopied, setHasCopied] = useState(false);
     const handleCopy = () => {
-        navigator.clipboard.writeText('adrain@jsmastry.pro');
+        navigator.clipboard.writeText('mostafa.fexh.business@gmail.com');
         setHasCopied(true);
         setTimeout(() => {
             setHasCopied(false)
@@ -19,7 +19,7 @@ const About = () => {
                         <img src={'/assets/grid1.png'} alt={'Grid-1'}
                              className={'w-full sm:h-[276px] h-fit object-contain'}/>
                         <div className={''}>
-                            <p className={'grid-headtext'}>Hi, I&#39;m Adrain</p>
+                            <p className={'grid-headtext'}>Hi, I&#39;m Mostafa Yaser</p>
                             <p className={'grid-subtext'}>With 12 Years of experience, I have honed my skills in
                                 frontend and backend development, with a strong focus on animated 3D websites.</p>
                         </div>
@@ -40,8 +40,10 @@ const About = () => {
                     <div className={'grid-container'}>
                         <div className={'rounded-3xl w-full sm:h-[326px] h-fit flex items-center justify-center'}>
                             <Globe
-                                width={326}
-                                height={326}
+                                initialCameraDistanceRadiusScale={15}
+                                initialCoordinates={[29.7604, 95.3698]}
+                                width={386}
+                                height={386}
                                 backgroundColor={"rgba(0,0,0,0)"}
                                 backgroundImageOpacity={0.5}
                                 showAtmosphere={true}
@@ -49,17 +51,22 @@ const About = () => {
                                 globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
                                 bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
                                 labelsData={[{
-                                    lat: 40,
-                                    lng: -100,
+                                    lat: 30.8,
+                                    lng: 31.3,
                                     text: "I'm here!",
                                     color: "white",
-                                    size: 20,
+                                    size: 50,
                                 }]}
+                                options={{
+                                    focusAnimationDuration: 3000,
+                                    focusDistanceRadiusScale: 2,
+                                    focusEasingFunction: ['Elastic', 'In'],
+                                }}
                             />
                         </div>
                         <div>
                             <p className={'grid-headtext'}>I work remotely across most timezones.</p>
-                            <p className={'grid-headtext'}>I&#39;m based in Croatia, with remote work available.</p>
+                            <p className={'grid-headtext'}>I&#39;m based in Egypt, with remote work available.</p>
                             <Button name={'Contact Me'} isBeam containerClass={'w-full mt-10'}/>
                         </div>
                     </div>
@@ -83,7 +90,7 @@ const About = () => {
                             <p className={'grid-subtext'}>Contact Me</p>
                             <div className={'copy-container text-center'} onClick={handleCopy}>
                                 <img src={hasCopied ? '/assets/tick.svg' : '/assets/copy.svg'} alt={'copy'}/>
-                                <p className={'lg:text-2xl md:text-xl font-medium text-gray_gradient text-white'}>adrain@jsmastry.pro</p>
+                                <p className={'lg:text-2xl md:text-xl font-medium text-gray_gradient text-white'}>mostafa.fexh.business@gmail.com</p>
                             </div>
                         </div>
                     </div>
