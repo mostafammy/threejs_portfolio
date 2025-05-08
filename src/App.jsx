@@ -6,18 +6,30 @@ import Clients from "./sections/Clients.jsx";
 import Contact from "./sections/Contact.jsx";
 import Footer from "./sections/Footer.jsx";
 import Experience from "./sections/Experience.jsx";
+import {GoogleReCaptchaProvider} from "react-google-recaptcha-v3";
 
 const App = () => {
+    console.log(import.meta.env.VITE_PUBLIC_RECAPTCHA_SITE_KEY);
     return (
         <main className={"max-w-7xl mx-auto"}>
-            <Navbar/>
-            <Hero/>
-            <About/>
-            <Projects/>
-            <Clients/>
-            <Experience/>
-            <Contact/>
-            <Footer/>
+            <GoogleReCaptchaProvider
+                reCaptchaKey={import.meta.env.VITE_PUBLIC_RECAPTCHA_SITE_KEY}
+                scriptProps={{
+                    async: true,
+                    defer: true,
+                    appendTo: "head",
+                    nonce: undefined,
+                }}
+            >
+                <Navbar/>
+                <Hero/>
+                <About/>
+                <Projects/>
+                <Clients/>
+                <Experience/>
+                <Contact/>
+                <Footer/>
+            </GoogleReCaptchaProvider>
         </main>
     )
 }
