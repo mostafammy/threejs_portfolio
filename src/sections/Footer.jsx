@@ -1,4 +1,5 @@
 const Footer = () => {
+    const Current_Year = new Date().getFullYear();
     return (
         <section
             className={'c-space pt-3 pb-7 border-t border-black-300 flex justify-between items-center flex-wrap gap-5'}>
@@ -19,7 +20,7 @@ const Footer = () => {
                 </div>
             </div>
             <p className={'text-white-500'}>
-                © 2025 Mostafa Yaser . All Rights Reserved.
+                {`© ${Current_Year} Mostafa Yaser . All Rights Reserved.`}
             </p>
         </section>
     )
