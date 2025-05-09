@@ -16,7 +16,7 @@ const Footer = () => {
                     <img src={'assets/twitter.svg'} alt={'twitter'} className={'w-1/2 h-1/2'}/>
                 </div>
                 <div className={'social-icon'}>
-                    <img src={'assets/instagram.svg'} alt={'instagram'} className={'w-1/2 h-1/2'}/>
+                    <img src={'assets/icons8-linkedin-512.svg'} alt={'Linkedin'} className={'w-1/2 h-1/2'}/>
                 </div>
             </div>
             <p className={'text-white-500'}>
