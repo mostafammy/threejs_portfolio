@@ -23,7 +23,7 @@ console.log('RECAPTCHA_SECRET_KEY:', process.env); // Log for debugging
 const RECAPTCHA_SCORE_THRESHOLD = 0.5; // Adjust as needed (0.0 to 1.0)
 
 // Your contact form endpoint
-app.post('/api/contact', async (req, res) => {
+app.post('/api/server', async (req, res) => {
     const {recaptchaToken} = req.body;
     if (!recaptchaToken) {
         return res.status(400).json({message: 'Missing Token.'});
