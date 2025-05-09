@@ -45,7 +45,7 @@ const Contact = () => {
             }
 
             // Success!
-            alert('Message sent successfully!');
+            // alert('Message sent successfully!');
 
 
             // Sending The Email Using EmailJs
