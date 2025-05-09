@@ -19,7 +19,7 @@ const Footer = () => {
                 </div>
             </div>
             <p className={'text-white-500'}>
-                © 2025 Adrain . All Rights Reserved.
+                © 2025 Mostafa Yaser . All Rights Reserved.
             </p>
         </section>
     )
