@@ -65,7 +65,7 @@ const Contact = () => {
             });
         } catch (error) {
             setLoading(false);
-            console.log(error);
+            console.error(error);
             alert('An error occurred, Please try again later');
         }
 
