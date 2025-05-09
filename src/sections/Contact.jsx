@@ -29,7 +29,7 @@ const Contact = () => {
             const dataToSend = {recaptchaToken: token}; // Include the token
 
             // *** SEND DATA TO YOUR BACKEND ENDPOINT ***
-            const response = await fetch('/api/contact', { // <-- IMPORTANT: This needs to be your backend endpoint
+            const response = await fetch('/api/server', { // <-- IMPORTANT: This needs to be your backend endpoint
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
