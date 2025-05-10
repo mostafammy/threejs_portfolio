@@ -5,7 +5,7 @@ import {Suspense, useState} from "react";
 import CanvasLoader from "../components/CanvasLoader.jsx";
 import Developer from "../components/Developer.jsx";
 
-const Experience = () => {
+const Experience = ({isMobile}) => {
     const [animationName, setAnimationName] = useState('idle');
     return (
         <section className={'c-space my-20'}>
@@ -15,7 +15,7 @@ const Experience = () => {
                 </h3>
                 <div className={'work-container'}>
                     <div className={'work-canvas hidden md:block'}>
-                        <Canvas>
+                        {isMobile ? null : (<Canvas>
                             <ambientLight intesity={20}/>
                             <spotLight position={[10, 10, 10]} angle={0.15} penubra={1}/>
                             <directionalLight position={[10, 10, 10]} intensity={5}/>
@@ -24,7 +24,7 @@ const Experience = () => {
                                 <Developer position-y={-3} scale={3}
                                            animationName={animationName} rotation={[Math.PI / 12, 0, 0]}/>
                             </Suspense>
-                        </Canvas>
+                        </Canvas>)}
                     </div>
                     <div className={'work-content'}>
                         <div className={'sm:py-10 py-5 sm:px-5 px-2.5'}>

@@ -87,11 +87,13 @@ const About = () => {
                         <img src={'/assets/grid4.png'} alt={'Grid-4'}
                              className={'w-full md:h-[126px] sm:h-[276px] h-fit object-cover sm:object-top'}/>
                         <div className={'space-y-2'}>
-                            <p className={'grid-subtext'}>Contact Me</p>
-                            <div className={'copy-container text-center'} onClick={handleCopy}>
-                                <img src={hasCopied ? '/assets/tick.svg' : '/assets/copy.svg'} alt={'copy'}/>
-                                <p className={'lg:text-2xl md:text-xl font-medium text-gray_gradient text-white'}>mostafa.fexh@gmail.com</p>
-                            </div>
+                            <center>
+                                <p className={'grid-subtext'}>Contact Me</p>
+                                <div className={'copy-container text-center'} onClick={handleCopy}>
+                                    <img src={hasCopied ? '/assets/tick.svg' : '/assets/copy.svg'} alt={'copy'}/>
+                                    <p className={'lg:text-2xl md:text-xl font-medium text-gray_gradient text-white'}>mostafa.fexh@gmail.com</p>
+                                </div>
+                            </center>
                         </div>
                     </div>
                 </div>
