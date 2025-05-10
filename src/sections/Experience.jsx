@@ -7,6 +7,12 @@ import Developer from "../components/Developer.jsx";
 
 const Experience = ({isMobile}) => {
     const [animationName, setAnimationName] = useState('idle');
+    const UnloadModels = () => {
+        Developer?.geometry?.dispose();
+        Developer?.material?.dispose();
+
+        return null;
+    }
     return (
         <section className={'c-space my-20'}>
             <div className={'w-full text-white-600'}>
@@ -15,7 +21,7 @@ const Experience = ({isMobile}) => {
                 </h3>
                 <div className={'work-container'}>
                     <div className={'work-canvas hidden md:block'}>
-                        {isMobile ? null : (<Canvas>
+                        {isMobile ? UnloadModels() : (<Canvas>
                             <ambientLight intesity={20}/>
                             <spotLight position={[10, 10, 10]} angle={0.15} penubra={1}/>
                             <directionalLight position={[10, 10, 10]} intensity={5}/>

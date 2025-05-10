@@ -37,7 +37,7 @@ const App = () => {
                 <Navbar/>
                 <Hero/>
                 <About/>
-                <Projects/>
+                <Projects isMobile={isMobile}/>
                 {/*<Clients/>*/}
                 <Experience isMobile={isMobile}/>
                 <Contact/>
