@@ -58,6 +58,43 @@ export const clientReviews = [
 
 export const myProjects = [
     {
+        title: 'Xora - AI Video Editing Platform',
+        desc: 'We designed XORA AI Video Editor to be an Easy to Use , Quick to learn , and Surpriingly Powerful .',
+        subdesc:
+            'Built as a unique Software-as-a-Service app with Next.js 14, Tailwind CSS, TypeScript, Framer Motion and Convex, Xora is designed for optimal performance and scalability.',
+        href: 'https://xora-three.vercel.app/',
+        texture: '/textures/project/project1.mp4',
+        logo: '/assets/xora.png',
+        logoStyle: {
+            backgroundColor: '#1C1A43',
+            border: '0.2px solid #252262',
+            boxShadow: '0px 0px 60px 0px #AA3C304D',
+        },
+        spotlight: '/assets/spotlight2.png',
+        tags: [
+            {
+                id: 1,
+                name: 'React.js',
+                path: '/assets/react.svg',
+            },
+            {
+                id: 2,
+                name: 'TailwindCSS',
+                path: 'assets/tailwindcss.png',
+            },
+            {
+                id: 3,
+                name: 'TypeScript',
+                path: '/assets/typescript.png',
+            },
+            {
+                id: 4,
+                name: 'Framer Motion',
+                path: '/assets/framer.png',
+            },
+        ],
+    },
+    {
         title: 'Podcastr - AI Podcast Platform',
         desc: 'Podcastr is a revolutionary Software-as-a-Service platform that transforms the way podcasts are created. With advanced AI-powered features like text-to-multiple-voices functionality, it allows creators to generate diverse voiceovers from a single text input.',
         subdesc:
