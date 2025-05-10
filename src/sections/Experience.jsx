@@ -1,9 +1,10 @@
-import {Canvas} from "@react-three/fiber";
+import {Canvas, useThree} from "@react-three/fiber";
 import {workExperiences} from "../constants/index.js";
-import {OrbitControls} from "@react-three/drei";
-import {Suspense, useState} from "react";
+import {OrbitControls, PerformanceMonitor} from "@react-three/drei";
+import {Suspense, useEffect, useState} from "react";
 import CanvasLoader from "../components/CanvasLoader.jsx";
 import Developer from "../components/Developer.jsx";
+import round from "lodash/round.js";
 
 const Experience = ({isMobile}) => {
     const [animationName, setAnimationName] = useState('idle');
@@ -13,6 +14,18 @@ const Experience = ({isMobile}) => {
 
         return null;
     }
+
+    const [dpr, setDpr] = useState(1.5);
+
+    function AdaptivePixelRatio() {
+        const current = useThree((state) => state.performance.current)
+        const setPixelRatio = useThree((state) => state.setDpr)
+        useEffect(() => {
+            setPixelRatio(window.devicePixelRatio * current)
+        }, [current])
+        return null
+    }
+
     return (
         <section className={'c-space my-20'}>
             <div className={'w-full text-white-600'}>
@@ -21,16 +34,22 @@ const Experience = ({isMobile}) => {
                 </h3>
                 <div className={'work-container'}>
                     <div className={'work-canvas hidden md:block'}>
-                        {isMobile ? UnloadModels() : (<Canvas>
-                            <ambientLight intesity={20}/>
-                            <spotLight position={[10, 10, 10]} angle={0.15} penubra={1}/>
-                            <directionalLight position={[10, 10, 10]} intensity={5}/>
-                            <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2}/>
-                            <Suspense fallback={<CanvasLoader/>}>
-                                <Developer position-y={-3} scale={3}
-                                           animationName={animationName} rotation={[Math.PI / 12, 0, 0]}/>
-                            </Suspense>
-                        </Canvas>)}
+                        {isMobile ? UnloadModels() : (
+                            <Canvas frameloop={isMobile ? 'demand' : 'always'} dpr={dpr}>
+                                <PerformanceMonitor onIncline={() => setDpr(2)} onDecline={() => setDpr(1)}
+                                                    onChange={({factor}) => setDpr(round(0.5 + 1.5 * factor, 1))}>
+                                    <ambientLight intesity={20}/>
+                                    <spotLight position={[10, 10, 10]} angle={0.15} penubra={1}/>
+                                    <directionalLight position={[10, 10, 10]} intensity={5}/>
+                                    <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2}/>
+                                    <Suspense fallback={<CanvasLoader/>}>
+                                        <AdaptivePixelRatio pixelRatio={Math.min(window.devicePixelRatio, 2)}/>
+                                        <Developer position-y={-3} scale={3}
+                                                   animationName={animationName} rotation={[Math.PI / 12, 0, 0]}/>
+                                    </Suspense>
+                                </PerformanceMonitor>
+                            </Canvas>
+                        )}
                     </div>
                     <div className={'work-content'}>
                         <div className={'sm:py-10 py-5 sm:px-5 px-2.5'}>

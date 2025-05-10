@@ -1,10 +1,11 @@
 import {myProjects} from "../constants/index.js";
-import {Suspense, useState} from "react";
-import {Canvas} from "@react-three/fiber";
-import {Center, OrbitControls} from "@react-three/drei";
+import {Suspense, useEffect, useState} from "react";
+import {Canvas, useThree} from "@react-three/fiber";
+import {Center, OrbitControls, PerformanceMonitor} from "@react-three/drei";
 import CanvasLoader from "../components/CanvasLoader.jsx";
 import DemoComputer from "../components/DemoComputer.jsx";
 import Developer from "../components/Developer.jsx";
+import round from "lodash/round.js";
 
 const Projects = ({isMobile}) => {
     const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
@@ -26,6 +27,17 @@ const Projects = ({isMobile}) => {
         Developer?.material?.dispose();
 
         return null;
+    }
+
+    const [dpr, setDpr] = useState(1.5);
+
+    function AdaptivePixelRatio() {
+        const current = useThree((state) => state.performance.current)
+        const setPixelRatio = useThree((state) => state.setDpr)
+        useEffect(() => {
+            setPixelRatio(window.devicePixelRatio * current)
+        }, [current])
+        return null
     }
 
 
@@ -76,17 +88,21 @@ const Projects = ({isMobile}) => {
                 </div>
                 <div className={'border border-black-300 bg-black-200 rounded-lg h-96 md:h-full hidden md:block'}>
                     {isMobile ? UnloadModels() : (
-                        <Canvas>
-                            <ambientLight intensity={Math.PI}/>
-                            <directionalLight position={[10, 10, 5]} intensity={1}/>
-                            <Center>
-                                <Suspense fallback={<CanvasLoader/>}>
-                                    <group scale={2} position={[0, -3, 0]} rotation={[0, 0, 0]}>
-                                        <DemoComputer texture={currentProject.texture}/>
-                                    </group>
-                                </Suspense>
-                            </Center>
-                            <OrbitControls maxPolarAngle={Math.PI / 2} enableZoom={false}/>
+                        <Canvas frameloop={isMobile ? 'demand' : 'always'} dpr={dpr}>
+                            <PerformanceMonitor onIncline={() => setDpr(2)} onDecline={() => setDpr(1)}
+                                                onChange={({factor}) => setDpr(round(0.5 + 1.5 * factor, 1))}>
+                                <ambientLight intensity={Math.PI}/>
+                                <directionalLight position={[10, 10, 5]} intensity={1}/>
+                                <Center>
+                                    <Suspense fallback={<CanvasLoader/>}>
+                                        <AdaptivePixelRatio pixelRatio={Math.min(window.devicePixelRatio, 2)}/>
+                                        <group scale={2} position={[0, -3, 0]} rotation={[0, 0, 0]}>
+                                            <DemoComputer texture={currentProject.texture}/>
+                                        </group>
+                                    </Suspense>
+                                </Center>
+                                <OrbitControls maxPolarAngle={Math.PI / 2} enableZoom={false}/>
+                            </PerformanceMonitor>
                         </Canvas>
                     )}
                 </div>
