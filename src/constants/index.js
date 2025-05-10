@@ -286,3 +286,27 @@ export const workExperiences = [
         animation: 'salute',
     },
 ];
+
+export const FooterLinks = [
+    {
+        id: 1,
+        name: 'Github',
+        IconSrc: 'assets/github.svg',
+        alt: 'github',
+        link: 'https://github.com/mostafammy',
+    },
+    {
+        id: 2,
+        name: 'Twitter',
+        IconSrc: 'assets/twitter.svg',
+        alt: 'twitter',
+        link: 'https://x.com/MostafaYaserDev',
+    },
+    {
+        id: 3,
+        name: 'Linkedin',
+        IconSrc: 'assets/icons8-linkedin-512.svg',
+        alt: 'Linkedin',
+        link: 'https://www.linkedin.com/in/mostafa-yaser',
+    }
+];

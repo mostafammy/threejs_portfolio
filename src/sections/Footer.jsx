@@ -1,3 +1,5 @@
+import {FooterLinks} from "../constants/index.js";
+
 const Footer = () => {
     const Current_Year = new Date().getFullYear();
     return (
@@ -9,15 +11,17 @@ const Footer = () => {
                 <p>Privacy Policy</p>
             </div>
             <div className={'flex gap-3'}>
-                <div className={'social-icon'}>
-                    <img src={'assets/github.svg'} alt={'github'} className={'w-1/2 h-1/2'}/>
-                </div>
-                <div className={'social-icon'}>
-                    <img src={'assets/twitter.svg'} alt={'twitter'} className={'w-1/2 h-1/2'}/>
-                </div>
-                <div className={'social-icon'}>
-                    <img src={'assets/icons8-linkedin-512.svg'} alt={'Linkedin'} className={'w-1/2 h-1/2'}/>
-                </div>
+                {
+                    FooterLinks.map(({id, name, IconSrc, alt, link}) => {
+                        return (
+                            <div className={'social-icon'} key={id} id={name} onClick={() => {
+                                window.open(link, '_blank');
+                            }}>
+                                <img src={IconSrc} alt={alt} className={'w-1/2 h-1/2'}/>
+                            </div>
+                        );
+                    })
+                }
             </div>
             <p className={'text-white-500'}>
                 {`© ${Current_Year} Mostafa Yaser . All Rights Reserved.`}

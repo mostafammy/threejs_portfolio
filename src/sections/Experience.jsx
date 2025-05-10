@@ -14,7 +14,7 @@ const Experience = () => {
                     My Work Experience
                 </h3>
                 <div className={'work-container'}>
-                    <div className={'work-canvas'}>
+                    <div className={'work-canvas hidden md:block'}>
                         <Canvas>
                             <ambientLight intesity={20}/>
                             <spotLight position={[10, 10, 10]} angle={0.15} penubra={1}/>
