@@ -1,6 +1,6 @@
 import {useRef, useState} from "react";
-import emailjs from '@emailjs/browser';
 import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
+import SendEmail from "../utils/SendEmail.js";
 
 const Contact = () => {
     const formRef = useRef();
@@ -53,15 +53,13 @@ const Contact = () => {
 
 
             // Sending The Email Using EmailJs
-            await emailjs.send('service_m36zyjg', 'template_7cxu3bg', {
-                from_name: form.name,
-                from_email: form.email,
-                to_name: 'Adrian',
-                to_email: 'adrain@jsmastry.pro',
-                message: form.message,
-            }, 'jDKVUVCJDUSwD5ly-');
+            SendEmail(form);
+
+            // Reset the form
             setLoading(false);
+
             alert('Message Sent Successfully');
+            // Reset the form
             setForm({
                 name: '',
                 email: '',
