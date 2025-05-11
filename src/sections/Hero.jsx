@@ -85,7 +85,7 @@ const Hero = () => {
             </div>
             <div className={"w-full h-full absolute inset-0 mt-12"}>
                 {/*<Leva/>*/}
-                <Canvas frameloop={isMobile ? 'always' : 'always'} className={"w-full h-full"} dpr={dpr}>
+                <Canvas frameloop={isMobile ? 'demand' : 'always'} className={"w-full h-full"} dpr={dpr}>
                     <PerformanceMonitor onIncline={() => setDpr(2)} onDecline={() => setDpr(1)}
                                         onChange={({factor}) => setDpr(round(0.5 + 1.5 * factor, 1))}>
                         <Suspense fallback={<CanvasLoader/>}>
