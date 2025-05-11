@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import fetch from 'node-fetch';
 import cors from 'cors';
+import axios from "axios";
 // import {env} from 'node:process';
 
 
@@ -64,6 +65,34 @@ app.post('/api/server', async (req, res) => {
         return res.status(500).json({message: 'Internal server error.'});
     }
 });
+
+app.post('/api/server/sendemail', async (req, res) => {
+    const {name, email, message} = req.body;
+    if (!name || !email || !message) {
+        return res.status(400).json({message: 'Missing Form Data.'});
+    }
+    console.log('Sending email with data:', req.body); // Log for debugging
+    try {
+        const response = await axios.post('https://api.emailjs.com/api/v1.0/email/send', {
+            service_id: process.env.EMAILJS_SERVICE_ID,
+            template_id: process.env.EMAILJS_TEMPLATE_ID,
+            user_id: process.env.EMAILJS_PUBLIC_KEY,
+            template_params: {
+                from_name: name,
+                from_email: email,
+                to_name: 'Mostafa Yaser',
+                to_email: 'adrain@jsmastry.pro',
+                message: message,
+            }
+        });
+
+        res.status(200).json({success: true, data: response.data});
+    } catch (error) {
+        console.error('EmailJS error:', error.response?.data || error.message);
+        res.status(500).json({success: false, message: 'Failed to send email'});
+    }
+});
+
 
 const PORT = 3001; // Choose a port for your backend
 app.listen(PORT, () => {

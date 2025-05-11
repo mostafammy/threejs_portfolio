@@ -14,7 +14,7 @@ const Contact = () => {
     const handleChange = ({target: {name, value}}) => {
         setForm({...form, [name]: value});
     };
-    // service_m36zyjg
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -54,6 +54,8 @@ const Contact = () => {
 
             // Sending The Email Using EmailJs
             SendEmail(form);
+            // SendEmailRequest(form);
+
 
             // Reset the form
             setLoading(false);
