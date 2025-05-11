@@ -25,11 +25,15 @@ const Contact = () => {
         setLoading(true);
         const token = await executeRecaptcha('contact_form');
         try {
+            // 1. Get the hostname
+            const hostname = window.location.hostname;
             // Prepare data to send to backend
             const dataToSend = {recaptchaToken: token}; // Include the token
 
             // *** SEND DATA TO YOUR BACKEND ENDPOINT ***
-            const response = await fetch('/api/server', { // <-- IMPORTANT: This needs to be your backend endpoint
+            // http://localhost:3001/api/server => Locally
+            // /api/server => Deployed
+            const response = await fetch(`${hostname === 'localhost' ? 'http://localhost:3001/api/server' : '/api/server'}`, { // <-- IMPORTANT: This needs to be your backend endpoint
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
