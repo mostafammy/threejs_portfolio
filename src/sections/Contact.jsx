@@ -1,6 +1,10 @@
 import {useEffect, useRef, useState} from "react";
 import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
 import SendEmail from "../utils/SendEmail.js";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod/src/index.js";
+import contactFormSchema from "../utils/ValidatiionSchema.js";
+
 
 const Contact = () => {
     const formRef = useRef();
@@ -14,6 +18,15 @@ const Contact = () => {
     const [CanSubmit, setCanSubmit] = useState(true);
     const [timeLeft, setTimeLeft] = useState(15);
     const [isRunning, setIsRunning] = useState(false);
+
+    const {
+        register,
+        handleSubmit,
+        formState: {errors}
+    } = useForm({
+        resolver: zodResolver(contactFormSchema),
+        mode: 'onTouched'
+    })
 
     useEffect(() => {
         // Only start the timer if isRunning is true and time is greater than 0
@@ -51,8 +64,8 @@ const Contact = () => {
         setForm({...form, [name]: value});
     };
     // service_m36zyjg
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const OnSubmit = async (form) => {
+        // e.preventDefault();
 
         if (!executeRecaptcha) {
             alert("reCAPTCHA not loaded yet");
@@ -122,21 +135,26 @@ const Contact = () => {
                     <h3 className={'head-text '}>Let&#39;s Talk</h3>
                     <p className={'text-white-600 text-lg'}>Whether you&#39;re looking to build a new website, Improve
                         Your Exiting Platform, Or bring a new unique project to life, I&#39;m here to help. </p>
-                    <form ref={formRef} onSubmit={handleSubmit} className={'flex flex-col space-y-7 mt-12'}>
+                    <form ref={formRef} onSubmit={handleSubmit(OnSubmit)}
+                          className={'flex flex-col space-y-7 mt-12'} noValidate>
                         <label className={'space-y-3'}>
                             <span className={'field-label'}>Full Name</span>
-                            <input type={'text'} name={'name'} value={form.name} onChange={handleChange} required
-                                   className={'field-input'} placeholder={'John Doe'}/>
+                            <input type={'text'} name={'name'} required
+                                   className={'field-input'} placeholder={'John Doe'} {...register('name')}/>
+                            {errors.name && <p className={'text-red-500'}>{errors.name.message}</p>}
                         </label>
                         <label className={'space-y-3'}>
                             <span className={'field-label'}>Email</span>
-                            <input type={'email'} name={'email'} value={form.email} onChange={handleChange} required
-                                   className={'field-input'} placeholder={'johndoe@gmail.com'}/>
+                            <input type={'email'} name={'email'} required
+                                   className={'field-input'} placeholder={'johndoe@gmail.com'} {...register('email')} />
+                            {errors.email && <p className={'text-red-500'}>{errors.email.message}</p>}
                         </label>
                         <label className={'space-y-3'}>
                             <span className={'field-label'}>Your Message</span>
-                            <textarea name={'message'} value={form.message} onChange={handleChange} required rows={5}
-                                      className={'field-input'} placeholder={"Hi, I'm interested in ..."}/>
+                            <textarea name={'message'} required rows={5}
+                                      className={'field-input'}
+                                      placeholder={"Hi, I'm interested in ..."} {...register('message')} />
+                            {errors.message && <p className={'text-red-500'}>{errors.message.message}</p>}
                         </label>
                         <button type={'submit'} className={'field-btn'} disabled={loading || !CanSubmit}>
                             {loading ? 'Sending...' : 'Send Message'}
