@@ -20,7 +20,7 @@ const About = () => {
                              className={'w-full sm:h-[276px] h-fit object-contain'}/>
                         <div className={''}>
                             <p className={'grid-headtext'}>Hi, I&#39;m Mostafa Yaser</p>
-                            <p className={'grid-subtext'}>With 12 Years of experience, I have honed my skills in
+                            <p className={'grid-subtext'}>With 6 Years of experience, I have honed my skills in
                                 frontend and backend development, with a strong focus on animated 3D websites.</p>
                         </div>
                     </div>
