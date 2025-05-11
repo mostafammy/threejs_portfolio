@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
 import SendEmail from "../utils/SendEmail.js";
 
@@ -11,6 +11,42 @@ const Contact = () => {
         email: '',
         message: '',
     });
+    const [CanSubmit, setCanSubmit] = useState(true);
+    const [timeLeft, setTimeLeft] = useState(15);
+    const [isRunning, setIsRunning] = useState(false);
+
+    useEffect(() => {
+        // Only start the timer if isRunning is true and time is greater than 0
+        let timer;
+        if (isRunning && timeLeft > 0) {
+            timer = setInterval(() => {
+                setTimeLeft(prevTime => prevTime - 1);
+            }, 1000);
+        } else if (timeLeft === 0) {
+            setIsRunning(false);
+            setCanSubmit(true);
+        }
+
+        // Clean up the interval when component unmounts or dependencies change
+        return () => {
+            clearInterval(timer);
+        };
+    }, [isRunning, timeLeft]);
+
+    const startTimer = () => {
+        setIsRunning(true);
+    };
+
+    // const pauseTimer = () => {
+    //     setIsRunning(false);
+    // };
+    //
+    // const resetTimer = () => {
+    //     setIsRunning(false);
+    //     setTimeLeft(15);
+    // };
+
+
     const handleChange = ({target: {name, value}}) => {
         setForm({...form, [name]: value});
     };
@@ -23,6 +59,7 @@ const Contact = () => {
             return;
         }
         setLoading(true);
+        setCanSubmit(false);
         const token = await executeRecaptcha('contact_form');
         try {
             // 1. Get the hostname
@@ -65,6 +102,9 @@ const Contact = () => {
                 email: '',
                 message: '',
             });
+            // Start the timer
+            startTimer();
+
         } catch (error) {
             setLoading(false);
             console.error(error);
@@ -98,9 +138,15 @@ const Contact = () => {
                             <textarea name={'message'} value={form.message} onChange={handleChange} required rows={5}
                                       className={'field-input'} placeholder={"Hi, I'm interested in ..."}/>
                         </label>
-                        <button type={'submit'} className={'field-btn'} disabled={loading}>
+                        <button type={'submit'} className={'field-btn'} disabled={loading || !CanSubmit}>
                             {loading ? 'Sending...' : 'Send Message'}
-                            <img src={'assets/arrow-up.png'} alt={'arrow up'} className={'field-btn_arrow'}/>
+                            {!CanSubmit && (
+                                <span className={'text-red-500 ml-2'}>
+                                    {isRunning ? `Please wait ${timeLeft} seconds` : 'Please wait 30 seconds'}
+                                </span>
+                            )}
+                            {CanSubmit && (
+                                <img src={'assets/arrow-up.png'} alt={'arrow up'} className={'field-btn_arrow'}/>)}
                         </button>
                     </form>
                 </div>
