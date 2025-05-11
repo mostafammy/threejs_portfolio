@@ -142,7 +142,7 @@ const Contact = () => {
                             {loading ? 'Sending...' : 'Send Message'}
                             {!CanSubmit && (
                                 <span className={'text-red-500 ml-2'}>
-                                    {isRunning ? `Please wait ${timeLeft} seconds` : 'Please wait 30 seconds'}
+                                    {isRunning ? `Please wait ${timeLeft} seconds` : 'Please wait 15 seconds'}
                                 </span>
                             )}
                             {CanSubmit && (
