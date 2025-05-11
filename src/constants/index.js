@@ -63,7 +63,7 @@ export const myProjects = [
         subdesc:
             'Built as a unique Software-as-a-Service app with Next.js 14, Tailwind CSS, TypeScript, Framer Motion and Convex, Xora is designed for optimal performance and scalability.',
         href: 'https://xora-three.vercel.app/',
-        texture: '/textures/project/project1.mp4',
+        texture: '/textures/project/Xora_Demo_Low_Qality.mp4',
         logo: '/assets/xora.png',
         logoStyle: {
             backgroundColor: '#1C1A43',
