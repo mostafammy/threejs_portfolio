@@ -59,7 +59,7 @@ export const clientReviews = [
 export const myProjects = [
     {
         title: 'Xora - AI Video Editing Platform',
-        desc: 'We designed XORA AI Video Editor to be an Easy to Use , Quick to learn , and Surpriingly Powerful .',
+        desc: 'XORA AI Video Editor was crafted to offer a seamless experience—effortless to use, fast to master, and equipped with surprisingly advanced features that empower creators to achieve professional results quickly and easily.',
         subdesc:
             'Built as a unique Software-as-a-Service app with Next.js 14, Tailwind CSS, TypeScript, Framer Motion and Convex, Xora is designed for optimal performance and scalability.',
         href: 'https://xora-three.vercel.app/',
