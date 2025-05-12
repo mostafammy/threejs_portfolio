@@ -136,20 +136,21 @@ const Contact = () => {
                     <p className={'text-white-600 text-lg'}>Whether you&#39;re looking to build a new website, Improve
                         Your Exiting Platform, Or bring a new unique project to life, I&#39;m here to help. </p>
                     <form ref={formRef} onSubmit={handleSubmit(OnSubmit)}
-                          className={'flex flex-col space-y-7 mt-12'} noValidate>
-                        <label className={'space-y-3'}>
+                          className={`flex flex-col space-y-7 ${errors.name || errors.email || errors.message ? 'mt-6' : 'mt-12'}`}
+                          noValidate>
+                        <label className={errors.name ? 'space-y-1' : 'space-y-3'}>
                             <span className={'field-label'}>Full Name</span>
                             <input type={'text'} name={'name'} required
                                    className={'field-input'} placeholder={'John Doe'} {...register('name')}/>
                             {errors.name && <p className={'text-red-500'}>{errors.name.message}</p>}
                         </label>
-                        <label className={'space-y-3'}>
+                        <label className={errors.name ? 'space-y-1' : 'space-y-3'}>
                             <span className={'field-label'}>Email</span>
                             <input type={'email'} name={'email'} required
                                    className={'field-input'} placeholder={'johndoe@gmail.com'} {...register('email')} />
                             {errors.email && <p className={'text-red-500'}>{errors.email.message}</p>}
                         </label>
-                        <label className={'space-y-3'}>
+                        <label className={errors.name ? 'space-y-1' : 'space-y-3'}>
                             <span className={'field-label'}>Your Message</span>
                             <textarea name={'message'} required rows={5}
                                       className={'field-input'}
